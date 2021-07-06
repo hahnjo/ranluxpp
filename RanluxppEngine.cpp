@@ -20,7 +20,11 @@ to the modulus (based on notes by M. Lüscher). Also, the generator converts the
 LCG state back to RANLUX numbers (implementation based on notes by M. Lüscher).
 This avoids a bias in the generated numbers because the upper bits of the LCG
 state, that is smaller than the modulus \f$ m = 2^{576} - 2^{240} + 1 \f$ (not
-a power of 2!), have a higher probability of being 0 than 1.
+a power of 2!), have a higher probability of being 0 than 1. And finally, this
+implementation draws 48 random bits for each generated floating point number
+(instead of 52 bits as in the original generator) to maintain the theoretical
+properties from understanding the original transition function of RANLUX as a
+chaotic dynamical system.
 */
 
 #include "RanluxppEngine.h"
@@ -40,7 +44,7 @@ static const uint64_t kA_2048[] = {
 };
 
 static constexpr int kMaxPos = 9 * 64;
-static constexpr int kBits = 52;
+static constexpr int kBits = 48;
 
 } // end anonymous namespace
 
@@ -126,19 +130,9 @@ void RanluxppEngine::Skip(uint64_t n) {
 }
 
 double RanluxppEngine::Rndm() {
-  // Get 52 bits of randomness.
+  static constexpr double div = 1.0 / (uint64_t(1) << kBits);
   uint64_t bits = NextRandomBits();
-
-  // Construct the double in [1, 2), using the random bits as mantissa.
-  static constexpr uint64_t exp = 0x3ff0000000000000;
-  union {
-    double dRandom;
-    uint64_t iRandom;
-  };
-  iRandom = exp | bits;
-
-  // Shift to the right interval of [0, 1).
-  return dRandom - 1;
+  return bits * div;
 }
 
 uint64_t RanluxppEngine::IntRndm() { return NextRandomBits(); }

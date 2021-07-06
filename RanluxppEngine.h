@@ -21,9 +21,9 @@ private:
 public:
   RanluxppEngine(uint64_t seed = 314159265);
 
-  /// Generate a double-precision random number with 52 bits of randomness
+  /// Generate a double-precision random number with 48 bits of randomness
   double Rndm();
-  /// Generate a random integer value with 52 bits
+  /// Generate a random integer value with 48 bits
   uint64_t IntRndm();
 
   /// Initialize and seed the state of the generator
