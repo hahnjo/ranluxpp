@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
-cmake_minimum_required(VERSION 3.0...3.20 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.5...3.20 FATAL_ERROR)
 project(RANLUX++)
 
 add_compile_options(-Wall -Wextra)
