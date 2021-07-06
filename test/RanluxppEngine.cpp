@@ -4,7 +4,7 @@
 
 #include "gtest/gtest.h"
 
-TEST(RanluxppEngine, compare) {
+TEST(RanluxppEngine, DISABLED_compare) {
   RanluxppEngine rng(314159265);
   // Match the assembly implementation in skipping the first 11 numbers.
   rng.Skip(11);

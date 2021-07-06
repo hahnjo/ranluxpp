@@ -9,7 +9,8 @@
 class RanluxppEngine final {
 
 private:
-  uint64_t fState[9]; ///< State of the generator
+  uint64_t fState[9]; ///< RANLUX state of the generator
+  unsigned fCarry;    ///< Carry bit of the RANLUX state
   int fPosition = 0;  ///< Current position in bits
 
   /// Produce next block of random bits
