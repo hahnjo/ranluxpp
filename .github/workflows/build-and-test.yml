@@ -1,0 +1,20 @@
+name: Build and Test
+on: push
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: install gtest
+        run: sudo apt-get install libgtest-dev
+      - uses: actions/checkout@v2
+      - name: create directory
+        run: mkdir build
+      - name: configure
+        run: cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
+        working-directory: build
+      - name: build
+        run: make
+        working-directory: build
+      - name: test
+        run: make test
+        working-directory: build
