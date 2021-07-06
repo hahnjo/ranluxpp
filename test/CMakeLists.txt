@@ -8,9 +8,13 @@ endif()
 
 include_directories(${GTEST_INCLUDE_DIRS})
 
-add_executable(test_mulmod mulmod.cpp)
-target_link_libraries(test_mulmod ${GTEST_BOTH_LIBRARIES})
-add_test(NAME mulmod COMMAND test_mulmod)
+add_executable(test_mulmod_opt mulmod_opt.cpp)
+target_link_libraries(test_mulmod_opt ${GTEST_BOTH_LIBRARIES})
+add_test(NAME mulmod_opt COMMAND test_mulmod_opt)
+
+add_executable(test_mulmod_noint128 mulmod_noint128.cpp)
+target_link_libraries(test_mulmod_noint128 ${GTEST_BOTH_LIBRARIES})
+add_test(NAME mulmod_noint128 COMMAND test_mulmod_noint128)
 
 add_executable(test_RanluxppEngine RanluxppEngine.cpp)
 target_link_libraries(test_RanluxppEngine RANLUX++ ${GTEST_BOTH_LIBRARIES})
