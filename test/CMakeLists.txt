@@ -20,6 +20,10 @@ add_executable(test_ranlux_lcg ranlux_lcg.cpp)
 target_link_libraries(test_ranlux_lcg ${GTEST_BOTH_LIBRARIES})
 add_test(NAME ranlux_lcg COMMAND test_ranlux_lcg)
 
+add_executable(test_RanluxppCompatEngine RanluxppCompatEngine.cpp)
+target_link_libraries(test_RanluxppCompatEngine RANLUX++compat ${GTEST_BOTH_LIBRARIES})
+add_test(NAME RanluxppCompatEngine COMMAND test_RanluxppCompatEngine)
+
 add_executable(test_RanluxppEngine RanluxppEngine.cpp)
 target_link_libraries(test_RanluxppEngine RANLUX++ ${GTEST_BOTH_LIBRARIES})
 add_test(NAME RanluxppEngine COMMAND test_RanluxppEngine)
