@@ -25,6 +25,10 @@ implementation draws 48 random bits for each generated floating point number
 (instead of 52 bits as in the original generator) to maintain the theoretical
 properties from understanding the original transition function of RANLUX as a
 chaotic dynamical system.
+
+These modifications and the portable implementation in general are described in
+J. Hahnfeld, L. Moneta, *A Portable Implementation of RANLUX++*, vCHEP2021
+preprint https://arxiv.org/pdf/2106.02504.pdf
 */
 
 #include "RanluxppEngine.h"
