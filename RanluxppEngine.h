@@ -4,7 +4,6 @@
 #define RanluxppEngine_h
 
 #include <cstdint>
-#include <memory>
 
 class RanluxppEngine final {
 
