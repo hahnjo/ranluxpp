@@ -4,6 +4,33 @@ A Portable Implementation of RANLUX++
 Standalone version of the code originally submitted to the [ROOT data analysis framework](https://root.cern/)
 and described in "A Portable Implementation of RANLUX++" at vCHEP2021 ([preprint on arXiv.org](https://arxiv.org/abs/2106.02504)).
 
+Building
+--------
+
+The project uses the CMake build system:
+
+```shell
+ $ mkdir build && cd build
+ $ cmake -DCMAKE_BUILD_TYPE=Release ..
+ $ make
+```
+
+For more information about CMake, see the official [User Interaction Guide](https://cmake.org/cmake/help/latest/guide/user-interaction/index.html).
+
+Interfaces
+----------
+
+The main interface is `RanluxppEngine` in the corresponding header file.
+It implements the recommended seeding method and uses a luxury level of `p = 2048`.
+Each random number is 48 bits wide and can optionally be returned as a `double`.
+
+The file `RanluxppCompatEngine.h` provides generators that reproduce the same sequences as original RANLUX implementations.
+The returned numbers have inferior quality, oftentimes only 24 bits wide and much lower luxury levels.
+The generators are of HISTORICAL interest only, and SHOULD NOT be used for new applications!
+
+License
+-------
+
 ```
 Copyright (C) 2020-2021  CERN, Jonas Hahnfeld
 
