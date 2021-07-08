@@ -215,26 +215,6 @@ public:
     Advance();
   }
 
-  /// Initialize and seed the state of the generator as proposed by Sibidanov
-  void SetSeedSibidanov(uint64_t s) {
-    uint64_t lcg[9];
-    lcg[0] = 1;
-    for (int i = 1; i < 9; i++) {
-      lcg[i] = 0;
-    }
-
-    uint64_t a_seed[9];
-    // Skip 2 ** 96 states.
-    powermod(kA, a_seed, uint64_t(1) << 48);
-    powermod(a_seed, a_seed, uint64_t(1) << 48);
-    // Skip another s states.
-    powermod(a_seed, a_seed, s);
-    mulmod(a_seed, lcg);
-
-    to_ranlux(lcg, fState, fCarry);
-    fPosition = 0;
-  }
-
   /// Initialize and seed the state of the generator as described by the C++
   /// standard
   void SetSeedStd24(uint64_t s) {
