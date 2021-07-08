@@ -28,6 +28,15 @@ The file `RanluxppCompatEngine.h` provides generators that reproduce the same se
 The returned numbers have inferior quality, oftentimes only 24 bits wide and much lower luxury levels.
 The generators are of HISTORICAL interest only, and SHOULD NOT be used for new applications!
 
+If enabled with `-DRANLUXPP_GSL_INTERFACE=ON`, there is a third library with an interface for the [GNU Scientific Library](https://www.gnu.org/software/gsl/).
+To use it, just declare
+
+```c
+extern const gsl_rng_type *gsl_rng_ranluxpp;
+```
+
+in your application and use it to [generate random numbers](https://www.gnu.org/software/gsl/doc/html/rng.html).
+
 License
 -------
 

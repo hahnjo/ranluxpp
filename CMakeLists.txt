@@ -23,6 +23,17 @@ install(TARGETS RANLUX++compat
   ARCHIVE DESTINATION lib
   PUBLIC_HEADER DESTINATION include)
 
+# Interface for GNU Scientific Library
+option(RANLUXPP_GSL_INTERFACE "Build the interface for GSL" OFF)
+if(RANLUXPP_GSL_INTERFACE)
+  find_package(GSL REQUIRED)
+  add_library(RANLUX++gsl STATIC RanluxppGSL.cpp)
+  target_link_libraries(RANLUX++gsl GSL::gsl)
+
+  install(TARGETS RANLUX++gsl ARCHIVE DESTINATION lib)
+endif()
+
+# Testing.
 include(CTest)
 if(BUILD_TESTING)
   add_subdirectory(test)
