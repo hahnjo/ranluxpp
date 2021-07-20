@@ -28,7 +28,10 @@ The file `RanluxppCompatEngine.h` provides generators that reproduce the same se
 The returned numbers have inferior quality, oftentimes only 24 bits wide and much lower luxury levels.
 The generators are of HISTORICAL interest only, and SHOULD NOT be used for new applications!
 
-If enabled with `-DRANLUXPP_GSL_INTERFACE=ON`, there is a third library with an interface for the [GNU Scientific Library](https://www.gnu.org/software/gsl/).
+Additionally, there is an interface that meets the requirements of the C++ standard.
+After enabling the option `-DRANLUXPP_CXX_STANDARD=ON`, include `std_ranluxpp.h` into your application and link with `libRANLUX++cxx.a`.
+
+If enabled with `-DRANLUXPP_GSL_INTERFACE=ON`, there is also a library with an interface for the [GNU Scientific Library](https://www.gnu.org/software/gsl/).
 To use it, just declare
 
 ```c

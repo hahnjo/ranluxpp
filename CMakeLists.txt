@@ -23,6 +23,18 @@ install(TARGETS RANLUX++compat
   ARCHIVE DESTINATION lib
   PUBLIC_HEADER DESTINATION include)
 
+# Interface for the C++ standard
+option(RANLUXPP_CXX_STANDARD "Build the interface for the C++ standard" OFF)
+if(RANLUXPP_CXX_STANDARD)
+  add_library(RANLUX++cxx STATIC std_ranluxpp.cpp)
+	target_include_directories(RANLUX++cxx PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+	set_target_properties(RANLUX++cxx PROPERTIES PUBLIC_HEADER std_ranluxpp.h)
+
+  install(TARGETS RANLUX++cxx
+		ARCHIVE DESTINATION lib
+		PUBLIC_HEADER DESTINATION include)
+endif()
+
 # Interface for GNU Scientific Library
 option(RANLUXPP_GSL_INTERFACE "Build the interface for GSL" OFF)
 if(RANLUXPP_GSL_INTERFACE)

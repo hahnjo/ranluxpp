@@ -26,6 +26,12 @@ add_executable(test_RanluxppEngine RanluxppEngine.cpp)
 target_link_libraries(test_RanluxppEngine RANLUX++ GTest::Main)
 add_test(NAME RanluxppEngine COMMAND test_RanluxppEngine)
 
+if(RANLUXPP_CXX_STANDARD)
+  add_executable(test_std_ranluxpp std_ranluxpp.cpp)
+  target_link_libraries(test_std_ranluxpp RANLUX++cxx GTest::Main)
+  add_test(NAME std_ranluxpp COMMAND test_std_ranluxpp)
+endif()
+
 if(RANLUXPP_GSL_INTERFACE)
   add_executable(test_RanluxppGSL RanluxppGSL.cpp)
   target_link_libraries(test_RanluxppGSL RANLUX++gsl GTest::Main)
