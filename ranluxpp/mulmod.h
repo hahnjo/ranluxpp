@@ -225,13 +225,13 @@ static void powermod(const uint64_t *base, uint64_t *res, uint64_t n) {
   }
 
   uint64_t mul[18] = {0};
-  while (n) {
-    if (n & 1) {
+  while (n > 0) {
+    if ((n & 1) != 0) {
       multiply9x9(res, fac, mul);
       mod_m(mul, res);
     }
     n >>= 1;
-    if (!n)
+    if (n == 0)
       break;
     multiply9x9(fac, fac, mul);
     mod_m(mul, fac);

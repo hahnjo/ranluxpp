@@ -9,7 +9,7 @@
 static inline uint64_t add_overflow(uint64_t a, uint64_t b,
                                     unsigned &overflow) {
   uint64_t add = a + b;
-  overflow = (add < a);
+  overflow = static_cast<unsigned>(add < a);
   return add;
 }
 
@@ -27,7 +27,7 @@ static inline uint64_t add_carry(uint64_t a, uint64_t b, unsigned &carry) {
 static inline uint64_t sub_overflow(uint64_t a, uint64_t b,
                                     unsigned &overflow) {
   uint64_t sub = a - b;
-  overflow = (sub > a);
+  overflow = static_cast<unsigned>(sub > a);
   return sub;
 }
 
@@ -59,7 +59,7 @@ static inline int64_t compute_r(const uint64_t *upper, uint64_t *r) {
     r_i = sub_carry(r_i, t1_i, carry);
     r[i] = r_i;
   }
-  int64_t c = -((int64_t)carry);
+  int64_t c = -(static_cast<int64_t>(carry));
 
   // Subtract t2 (only 240 bits, so need to extend)
   carry = 0;
@@ -133,12 +133,12 @@ static inline int64_t compute_r(const uint64_t *upper, uint64_t *r) {
   // equal to m, we need cbar = 1 and subtract m, otherwise cbar = c. The
   // value currently in r is greater or equal to m, if and only if one of
   // the last 240 bits is set and the upper bits are all set.
-  bool greater_m = r[0] | r[1] | r[2] | (r[3] & 0x0000ffffffffffff);
+  bool greater_m = (r[0] | r[1] | r[2] | (r[3] & 0x0000ffffffffffff)) != 0;
   greater_m &= (r[3] >> 48) == 0xffff;
   for (int i = 4; i < 9; i++) {
     greater_m &= (r[i] == UINT64_MAX);
   }
-  return c + (c == 0 && greater_m);
+  return c + static_cast<int64_t>(c == 0 && greater_m);
 }
 
 #endif
