@@ -38,8 +38,9 @@ static void multiply9x9(const uint64_t *in1, const uint64_t *in2,
 #endif
     for (int j = 0; j < 9; j++) {
       int k = i - j;
-      if (k < 0 || k >= 9)
+      if (k < 0 || k >= 9) {
         continue;
+      }
 
       uint64_t fac1 = in1[j];
       uint64_t fac2 = in2[k];
@@ -231,8 +232,9 @@ static void powermod(const uint64_t *base, uint64_t *res, uint64_t n) {
       mod_m(mul, res);
     }
     n >>= 1;
-    if (n == 0)
+    if (n == 0) {
       break;
+    }
     multiply9x9(fac, fac, mul);
     mod_m(mul, fac);
   }
