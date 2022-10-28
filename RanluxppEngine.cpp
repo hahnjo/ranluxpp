@@ -41,14 +41,14 @@ preprint https://arxiv.org/pdf/2106.02504.pdf
 
 namespace {
 
-static const uint64_t kA_2048[] = {
+const uint64_t kA_2048[] = {
     0xed7faa90747aaad9, 0x4cec2c78af55c101, 0xe64dcb31c48228ec,
     0x6d8a15a13bee7cb0, 0x20b2ca60cb78c509, 0x256c3d3c662ea36c,
     0xff74e54107684ed2, 0x492edfcc0cc8e753, 0xb48c187cf5b22097,
 };
 
-static constexpr int kMaxPos = 9 * 64;
-static constexpr int kBits = 48;
+constexpr int kMaxPos = 9 * 64;
+constexpr int kBits = 48;
 
 } // end anonymous namespace
 
