@@ -47,24 +47,29 @@ const uint64_t kA_2048[] = {
     0xff74e54107684ed2, 0x492edfcc0cc8e753, 0xb48c187cf5b22097,
 };
 
-constexpr int kMaxPos = 9 * 64;
 constexpr int kBits = 48;
 
 } // end anonymous namespace
 
-RanluxppEngine::RanluxppEngine(uint64_t seed) { SetSeed(seed); }
+RanluxppEngine::RanluxppEngine(uint64_t seed) {
+  static_assert(sizeof(fState[0]) * 8 == kStateElementBits,
+                "each element should be 64 bits");
+
+  SetSeed(seed);
+}
 
 void RanluxppEngine::SetSeed(uint64_t s) {
-  uint64_t lcg[9];
+  uint64_t lcg[kStateElements];
   lcg[0] = 1;
-  for (int i = 1; i < 9; i++) {
+  for (int i = 1; i < kStateElements; i++) {
     lcg[i] = 0;
   }
 
-  uint64_t a_seed[9];
+  uint64_t a_seed[kStateElements];
   // Skip 2 ** 96 states.
-  powermod(kA_2048, a_seed, uint64_t(1) << 48);
-  powermod(a_seed, a_seed, uint64_t(1) << 48);
+  static constexpr uint64_t TwoTo48 = uint64_t(1) << 48;
+  powermod(kA_2048, a_seed, TwoTo48);
+  powermod(a_seed, a_seed, TwoTo48);
   // Skip another s states.
   powermod(a_seed, a_seed, s);
   mulmod(a_seed, lcg);
@@ -74,7 +79,7 @@ void RanluxppEngine::SetSeed(uint64_t s) {
 }
 
 void RanluxppEngine::Advance() {
-  uint64_t lcg[9];
+  uint64_t lcg[kStateElements];
   to_lcg(fState, fCarry, lcg);
   mulmod(kA_2048, lcg);
   to_ranlux(lcg, fState, fCarry);
@@ -86,9 +91,9 @@ uint64_t RanluxppEngine::NextRandomBits() {
     Advance();
   }
 
-  int idx = fPosition / 64;
-  int offset = fPosition % 64;
-  int numBits = 64 - offset;
+  int idx = fPosition / kStateElementBits;
+  int offset = fPosition % kStateElementBits;
+  int numBits = kStateElementBits - offset;
 
   uint64_t bits = fState[idx] >> offset;
   if (numBits < kBits) {
@@ -118,10 +123,10 @@ void RanluxppEngine::Skip(uint64_t n) {
   int nPerState = kMaxPos / kBits;
   int skip = (n / nPerState);
 
-  uint64_t a_skip[9];
+  uint64_t a_skip[kStateElements];
   powermod(kA_2048, a_skip, skip + 1);
 
-  uint64_t lcg[9];
+  uint64_t lcg[kStateElements];
   to_lcg(fState, fCarry, lcg);
   mulmod(a_skip, lcg);
   to_ranlux(lcg, fState, fCarry);

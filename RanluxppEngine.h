@@ -8,9 +8,14 @@
 class RanluxppEngine final {
 
 private:
-  uint64_t fState[9]; ///< RANLUX state of the generator
-  unsigned fCarry;    ///< Carry bit of the RANLUX state
-  int fPosition = 0;  ///< Current position in bits
+  static constexpr int kStateElements = 9;
+  static constexpr int kStateElementBits = 64;
+
+  static constexpr int kMaxPos = kStateElements * kStateElementBits;
+
+  uint64_t fState[kStateElements]; ///< RANLUX state of the generator
+  unsigned fCarry;                 ///< Carry bit of the RANLUX state
+  int fPosition = 0;               ///< Current position in bits
 
   /// Produce next block of random bits
   void Advance();
