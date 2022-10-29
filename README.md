@@ -44,7 +44,7 @@ License
 -------
 
 ```
-Copyright (C) 2020-2021  CERN, Jonas Hahnfeld
+Copyright (C) 2020-2022  CERN, Jonas Hahnfeld
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
